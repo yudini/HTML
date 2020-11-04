@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+
+		<title>ASCIImation</title>
+		<script src="http://jun.hansung.ac.kr/CWP/examples/sample.js" type="text/javascript"></script>
+		<style>
+		
+		body { 
+			background-color: #CCCCFF;
+			text-align: center;
+			font-family: sans-serif;
+			font-size: 14pt;
+			font-weight: bold;
+
+			}
+
+		fieldset {
+			border:5px solid black;
+			border-radius: 10px;
+			display: inline-block;
+			visibility: visible;
+			vertical-align: top;
+			}
+
+		h1 { 
+			text-align: center;
+			font-size: 32pt;
+			font-weight: bold;
+			margin-bottom: 0px;
+
+		}
+
+		legend {
+			text-align: left;
+		}
+
+		textarea {
+			width: 90%;
+			height: 400px;
+			font-size:12pt;
+			font-weight: bold;
+			font-family: monospace;
+			vertical-align: middle;
+
+		}
+
+		</style>
+
+		<script>
+		var MYANNI =
+		    "     \n" +
+		    "  o \n"  +
+		    " /#\\ \n" +
+		    " / \\ \n" +
+		    "=====\n" +  
+		    " \\o/\n" +
+		    "  #  \n" +
+		    "__|__ \n" +
+		    "=====\n" +
+		    "      \n" +
+		    "      \n" +
+		    "          (Ouch!) \n" +   
+		    " \\__\\__o  \n";
+
+		 ANIMATIONS["MyAnni"] =ANIMATIONS["myanni"] =ANIMATIONS["MYANNI"]=MYANNI;
+		// stores the speed for animation to change frame into a variable (250ms by default)
+		var delayMS = 250;
+		var timer = null;   // stores ID of interval timer into a variable (initially null)
+		var frame = null;   // stores currently displayed frame into a variable (initially null)
+		var frameCount = 0; // stores set of frames to draw into a variable (initially zero)
+
+		// start up javascript code once the page has finished loading
+		window.onload = function() {
+
+			document.getElementById("start").onclick = startAnimation;
+			document.getElementById("stop").onclick = stopAnimation;
+			document.getElementById("animation").onchange = displayAnimation;
+			document.getElementById("size").onchange = changeSize;
+			document.getElementById("turbo").onclick = changeSpeed;
+			document.getElementById("normal").onclick = changeSpeed;
+			document.getElementById("slo-mo").onclick = changeSpeed;
+			document.getElementById("stop").disabled = true;
+		};
+
+		// updates the main text area to display all text of the chosen animation
+		function displayAnimation() {
+			var animationName = document.getElementById("animation").value;
+			document.getElementById("mytextarea").value = ANIMATIONS[animationName];
+			document.getElementById("start").disabled=false;
+			document.getElementById("stop").disabled = true;
+			
+		}
+
+		// sets the font size in the main text area
+		function changeSize() {
+          var Size= size.value;
+          document.getElementById("mytextarea").style.fontSize = Size;
+          
+		}
+
+
+		// changes the speed of the animation
+		function changeSpeed() {
+			delayMS=this.value;
+			clearInterval(timer);
+			timer = setInterval(displayFrame,delayMS,frame);
+
+		} 
+
+
+
+		// called when the "Start" button is clicked, display all frames of the animation in the 
+		// main text area
+		function startAnimation() {
+			animationName=document.getElementById("animation").value;
+			frame=ANIMATIONS[animationName].split("=====\n");
+			timer = setInterval(displayFrame,delayMS,frame);
+			document.getElementById("start").disabled=true;
+			document.getElementById("stop").disabled=false;
+
+		}
+
+		// displays one frame of the current animation passed as a parameter
+		function displayFrame(frame) {
+			document.getElementById("mytextarea").value = frame[frameCount%frame.length];
+			frameCount++;
+			
+
+		}
+
+		// called when the "Stop" button is clicked, halts the animation in progress and returns the
+		// text immediately before the animation began 
+		function stopAnimation() {
+			clearInterval(timer);
+			document.getElementById("start").disabled=false;
+			document.getElementById("stop").disabled=true;
+			document.getElementById("stop").innerHTML = displayAnimation();
+			
+
+		}
+
+		</script>
+
+
+	</head>
+
+	<body>
+
+		<h1>ASCII Animation</h1>
+
+		<div>
+
+			<textarea id="mytextarea" rows="20" cols="80"></textarea>
+
+		</div>
+
+		<div>
+
+			<fieldset>
+
+				<legend>Play Controls:</legend>
+
+				<div>
+
+					<input id="start" type="button" value="Start" />
+					<input id="stop" type="button" value="Stop" />
+
+
+				</div>
+
+			</fieldset>
+
+			<fieldset>
+
+				<legend>Animation:</legend>
+
+				<div>
+
+					<select id="animation" name="animation">
+
+						<option>Blank</option>
+						<option>Exercise</option>
+						<option>Juggler</option>
+						<option>Bike</option>
+						<option>Dive</option>
+						<option>MyAnni</option>
+
+					</select>
+
+				</div>
+
+			</fieldset>
+
+			<fieldset>
+				<legend>Size:</legend>
+
+				<div>
+					<select id="size" name="size">
+
+						<option id="tiny" value="7pt">Tiny</option>
+						<option id="small" value="10pt">Small</option>
+						<option id="medium" value="12pt" selected>Medium</option>
+						<option id="large" value="16pt">Large</option>
+						<option id="extra large" value="24pt">Extra Large</option>
+						<option id="xxl" value="32pt">XXL</option>
+
+					</select>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend>Speed:</legend>
+				<div>
+					<lable>
+					<input id="turbo" type="radio" value="50" name="speed">Turbo</lable>
+					<label>
+					<input id="normal" type="radio"
+					value="250" name="speed" checked>Normal</label>
+					<label>
+					<input id="slo-mo" type="radio"
+					value="1500" name="speed" >Slo-mo</label>
+				</div>
+			</fieldset>
+
+
+		</div>
+		
+	</body>
+
+</html>
