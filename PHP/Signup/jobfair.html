@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Attend Job Fair!</title>
+		<link href="http://jun.hansung.ac.kr/SWP/HW/JobFair/jobfair.css" type="text/css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<img src="http://jun.hansung.ac.kr/SWP/HW/JobFair/Job-Fair.jpg" />
+		<h1>Don't miss a good chance !</h1>
+
+		<p>
+			Please sign up for participation to the Job Fair Event.
+		</p>
+
+		<hr />
+
+		<h2> Sign-up for seat reservation</h2>
+		
+		<form action="signup.php" method="POST">
+				<div class="item">Name</div>
+				<input type="text" name="name" /> <br />
+				<div class="item">E-mail</div>
+				<input type="text" name="email" /> <br />
+				<div class="item">Field of Interest</div>
+				<select name="interest">
+						<option value="">(Select a section)</option>
+						<option value="programmer">Programmer</option>
+						<option value="engineer">Engineer</option>
+						<option value="sales">Sales</option>
+						<option value="marketing">Marketing</option>
+				</select>
+				<br />
+				<div class="item"> Gender </div>
+					<label><input type="radio" name="gender" value="male" />Male</label>
+					<label><input type="radio" name="gender" value="female" />Female</label>
+				<br />
+
+			<input type="submit" value="Sign Me up!" />
+			
+		</form>
+	</body>
+</html>
